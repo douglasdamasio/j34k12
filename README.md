@@ -2,7 +2,7 @@
 
 App de resolução do problema.
 
-Para execução do programa é necessário utilizar o comando abaixo:
+Para execução do programa é necessário utilizar o comando abaixo no terminal:
 
 `cat [ARQUIVO_DE_ENTRADA.txt] | python app.py`
 
