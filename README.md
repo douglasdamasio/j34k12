@@ -1,6 +1,6 @@
 # j34k12
 
-App de resolução do problema de balanceamento de carga de alocação de usuários em servidores com custo menor possivel.
+App de resolução do problema.
 
 Para execução do programa é necessário utilizar o comando abaixo:
 
