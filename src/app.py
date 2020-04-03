@@ -3,7 +3,10 @@ from server import Server
 from user import User
 
 
+# Class App (Principal)
 class App():
+
+    # Argumentos de inicialização
     def __init__(self, ttask, umax, listConnections):
         self.ttask = ttask
         self.umax = umax
@@ -15,6 +18,7 @@ class App():
 
         self.balaceLogic()
 
+    # Core do App
     def balaceLogic(self):
         for numberConn in self.listConnections:
             for n in range(int(numberConn)):
@@ -23,7 +27,7 @@ class App():
             self.updateServers(self.servers, self.outputSystem)
             self.servers = self.deleteServerEmpty(self.servers)
             self.allPrice += len(self.servers)
-        
+
         while len(self.servers) > 0:
             self.updateServers(self.servers, self.outputSystem)
             self.servers = self.deleteServerEmpty(self.servers)
@@ -35,13 +39,14 @@ class App():
 
         self.finallyOutput(self.outputSystem)
 
+    # Realiza o output do arquivo
     def finallyOutput(self, __output):
         with open('output.txt', 'w') as file:
             for item in __output:
                 file.write(item + '\n')
         file.close()
-            
 
+    # Pega o melhor servidor para processamento da tarefa
     def getServer(self, __servers):
         serverBest = None
         for __server in __servers:
@@ -58,6 +63,7 @@ class App():
         __servers.append(newServer)
         return newServer
 
+    # Atualiza os servidores
     def updateServers(self, __servers, __output):
         amoutUsers = ''
         for __server in __servers:
@@ -74,14 +80,19 @@ class App():
         if amoutUsers != '':
             __output.append(amoutUsers)
 
+    # Elimina o servidor que está vazio
     def deleteServerEmpty(self, __servers):
         return [__server for __server in __servers if not __server.is_Empty()]
 
 
+# Class de recebimento do arquivo
 class ReceptorFile():
+
+    # Arquivo como unico argumento de inicialização
     def __init__(self):
         self.fileInput = sys.stdin
 
+    # Processa o arquivo para devolução das saidas da inicialização do App
     def dataProcessing(self):
         self.listData = []
 
@@ -90,12 +101,16 @@ class ReceptorFile():
                 self.listData.append(int(dataLine.strip()))
 
             except ValueError:
-                print('O arquivo possui caracteres não numericos')
+                print('Inválido!\nEspera-se que o arquivo tenha apenas numeros inteiros')
                 exit()
 
             except Exception as e:
                 print('Erro:', e)
                 exit()
+
+        if len(listData) < 3:
+            print('Inválido!\nEspera-se que o arquivo tenha 3 linhas ou mais')
+            exit()
 
         self.ttask = self.listData[0]
         self.umax = self.listData[1]
